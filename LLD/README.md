@@ -5,7 +5,7 @@
 * First user open application.
 * Than enter the mobile number(enter valid number. Number should be 10 numbers).
 * After entering valid number truecaller send OTP on that number to verify user number.
-* Aftr enter Valid OTP truecaller ask for enter user information like name, user photo and email id.
+* After enter Valid OTP truecaller ask for enter user information like name, user photo and email id.
 * User information save sucesfully on truecller and open home page.
 
 ## Homepage 
