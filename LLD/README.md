@@ -10,7 +10,7 @@
 
 ## Homepage 
 
-* In homepage search option avalible foe search unkonwn number.
+* In homepage search option avalible for search unkonwn number.
 * If an unknown number is a user of TrueCaller, TrueCaller will display the name of that user; if an unknown user is not a user of TrueCaller, TrueCaller will display the name based on other TrueCaller user saved on their contact.
 
 ## profile (EDIT)
