@@ -1,5 +1,7 @@
 # LLD-Truecaller
 
+[LLD](https://github.com/Bhaveshkadam/Truecaller/blob/main/LLD/LLD-FLOW.drawio.png)
+
 ## ***This is the flow in details explanation.***
 
 * First user open application.
