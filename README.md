@@ -1,2 +1,2 @@
 # Truecaller
-Try to make clone of true-caller application.
+Try to make clone of truecaller application.
