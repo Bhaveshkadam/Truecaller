@@ -2,7 +2,7 @@
 
 ![LLD](https://github.com/Bhaveshkadam/Truecaller/blob/main/LLD/LLD-FLOW.drawio.png)
 
-## ***This is the flow in details explanation.***
+## **This is the flow in details explanation.**
 
 * First user open application.
 * Than enter the mobile number(enter valid number. Number should be 10 numbers).
