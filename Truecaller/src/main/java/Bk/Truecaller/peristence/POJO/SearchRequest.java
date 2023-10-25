@@ -9,12 +9,14 @@ import lombok.NoArgsConstructor;
 
 import java.math.BigInteger;
 
+
 @Data
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationResponse{
+public class SearchRequest {
 
-    private String message;
-
+    @NotBlank
+    @Pattern(regexp ="/^([+]\\d{2}[ ])?\\d{10}$/", message = "enter valid number")
+    private BigInteger number;
 }
