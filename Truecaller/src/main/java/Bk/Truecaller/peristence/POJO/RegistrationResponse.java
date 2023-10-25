@@ -15,8 +15,6 @@ import java.math.BigInteger;
 @NoArgsConstructor
 public class RegistrationResponse{
 
-
-  
     private String message;
 
 }
