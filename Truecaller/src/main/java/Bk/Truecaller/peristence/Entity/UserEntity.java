@@ -1,11 +1,15 @@
 package Bk.Truecaller.peristence.Entity;
 
-import Bk.Truecaller.peristence.POJO.Gender;
-
+import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 
+
+@Setter
+@Getter
+@Builder
+@AllArgsConstructor
+@NoArgsConstructor
 @Entity
 @Table(name = "user", schema = "public")
 public class UserEntity {
@@ -22,22 +26,15 @@ public class UserEntity {
     @Column(name = "lastname")
     private String lastname;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "gender")
-    private Gender gender;
-
-    @Column(name = "dob")
-    private LocalDate dob;
-
-    @NotNull
-    @Column(name = "password")
-    private String password;
-
     @NotNull
     @Column(name = "email")
     private String email;
 
+    @Column(name = "otp")
+    private String otp;
 
-
+    @NotNull
+    @Column(name = "mobilenumber")
+    private String mobileNumber;
 
 }
