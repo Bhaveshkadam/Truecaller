@@ -2,7 +2,7 @@
 Truecaller app helps you differentiate between normal, priority, spam and business calls. Anyone with the app can deter or even block calls from scammers, spam callers or any suspicious numbers.
 
 ## Test cases
-* Test case 1: Create user and register
+* Test case 1: Create a user and login successfully via OTP is complated.
 * Test case 2: Add contacts to user
 * Test case 3: check added contacts count
 * Test case 4: search for contacts by name
