@@ -40,6 +40,7 @@ public class UserController {
         return new ResponseEntity<>(userService.verifyOtp(request), HttpStatus.OK);
     }
 
+
 }
 
 
