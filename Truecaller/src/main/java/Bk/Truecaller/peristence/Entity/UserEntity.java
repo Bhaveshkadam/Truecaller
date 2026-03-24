@@ -5,36 +5,24 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 
 
-@Setter
+@Entity
+@Table(name = "users")
 @Getter
+@Setter
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-@Entity
-@Table(name = "user", schema = "public")
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(name = "id")
-    private Integer id;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @NotNull
-    @Column(name = "firstname")
-    private String firstname;
+    private String firstName;
+    private String lastName;
 
-    @Column(name = "lastname")
-    private String lastname;
-
-    @NotNull
-    @Column(name = "email")
-    private String email;
-
-    @Column(name = "otp")
-    private String otp;
-
-    @NotNull
-    @Column(name = "mobilenumber")
+    @Column(unique = true, nullable = false)
     private String mobileNumber;
 
+    private String email;
 }

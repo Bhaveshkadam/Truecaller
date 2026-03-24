@@ -1,57 +1,82 @@
 package Bk.Truecaller.service;
 
 import Bk.Truecaller.peristence.Entity.UserEntity;
-import Bk.Truecaller.peristence.POJO.LoginRequest;
-import Bk.Truecaller.peristence.POJO.LoginResponse;
+
+import Bk.Truecaller.peristence.POJO.ApiResponse;
+import Bk.Truecaller.peristence.POJO.RegisterRequest;
 import Bk.Truecaller.peristence.POJO.VerifyRequest;
 import Bk.Truecaller.peristence.repository.UserRepository;
-import lombok.NonNull;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Optional;
 
 
 @Service
+@RequiredArgsConstructor
 public class UserService {
 
-    @Autowired
-    private OtpService otpService;
-
     private final UserRepository userRepository;
+    private final OtpService otpService;
 
-    public UserService(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
-
-    public LoginResponse login(@NonNull final LoginRequest request) {
-        String otp = otpService.generateOtp();
-        otpService.sendOtp(otp);
-
-        UserEntity savedUser = userRepository.save(UserEntity.builder()
-                        .firstname(request.getFirstName())
-                        .lastname(request.getLastName())
-                        .email(request.getEmail())
-                        .mobileNumber(request.getMobileNumber())
-                        .otp(otp)
-                .build());
-
-        return LoginResponse.builder()
-                .userID(savedUser.getId())
-                .mobileNumber(savedUser.getMobileNumber())
-                .message("OTP Send Successfully, Please Verify Your Account .")
+    // Step 1: Send OTP
+    public ApiResponse sendOtp(String mobileNumber) {
+        otpService.sendOtp(mobileNumber);
+        return ApiResponse.builder()
+                .message("OTP sent successfully")
                 .build();
     }
 
-    public String verifyOtp(@NonNull final VerifyRequest request) {
-        Optional<UserEntity> userOptional = userRepository.findByMobileNumber(request.getMobileNumber());
-        if (userOptional.isPresent() && userOptional.get().getOtp().equals(request.getOtp())) {
-            return "Login successful";
+    // Step 2: Verify OTP
+    public ApiResponse verifyOtp(VerifyRequest request) {
+
+        boolean isValid = otpService.validateOtp(
+                request.getMobileNumber(),
+                request.getOtp()
+        );
+
+        if (!isValid) {
+            return ApiResponse.builder()
+                    .message("Invalid or expired OTP")
+                    .build();
+        }
+
+        Optional<UserEntity> user =
+                userRepository.findByMobileNumber(request.getMobileNumber());
+
+        if (user.isPresent()) {
+            return ApiResponse.builder()
+                    .message("Login successful")
+                    .data(user.get())
+                    .build();
         } else {
-            return "Invalid OTP";
+            return ApiResponse.builder()
+                    .message("New user, please register")
+                    .build();
         }
     }
 
+    // Step 3: Register (only after OTP verified)
+    public ApiResponse register(RegisterRequest request) {
 
+        if (userRepository.findByMobileNumber(request.getMobileNumber()).isPresent()) {
+            return ApiResponse.builder()
+                    .message("User already exists")
+                    .build();
+        }
+
+        UserEntity user = userRepository.save(
+                UserEntity.builder()
+                        .firstName(request.getFirstName())
+                        .lastName(request.getLastName())
+                        .email(request.getEmail())
+                        .mobileNumber(request.getMobileNumber())
+                        .build()
+        );
+
+        return ApiResponse.builder()
+                .message("User registered successfully")
+                .data(user)
+                .build();
+    }
 }

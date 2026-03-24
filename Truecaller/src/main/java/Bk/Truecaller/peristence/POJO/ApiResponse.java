@@ -9,9 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class LoginResponse {
-
-    private Integer userID;
+public class ApiResponse {
     private String message;
-    private String mobileNumber;
+    private Object data;
 }
